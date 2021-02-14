@@ -7,8 +7,13 @@ router.post('/signup', (req,res) => {
         password:req.body.user.password
     })
     .then(
-        res.send('Signup endpoint is working!')
-    );
+       function userSuccess (user) {
+           res.json({
+               user: user
+           });
+       }
+    )
+    .catch(err => res.status(500).json({error: err}))
 });
 
 module.exports = router
