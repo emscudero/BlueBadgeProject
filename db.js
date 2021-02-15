@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = newSequelize('FireLogger-app', 'postgres', 'password', {
+const sequelize = new Sequelize('FireLogger-app', 'postgres', 'password', {
     host:'localhost',
     dialect: 'postgres'
 });
