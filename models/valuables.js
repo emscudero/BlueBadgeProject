@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Valuables = sequelize.define('valuables', {
+    const Valuable = sequelize.define('valuable', {
         name: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
            model:{
                 type: DataTypes.STRING,
                 allowNull: false,
+               
             },
             serial_number:{
                 type: DataTypes.INTEGER,
@@ -23,8 +24,13 @@ module.exports = (sequelize, DataTypes) => {
             dollar_value:{
                 type: DataTypes.INTEGER,
                 allowNull: false,
+            },
+            owner_id: {
+                type: DataTypes.INTEGER,
+                allowNull: false
             }
+
         })
     
-    return Valuables;
+    return Valuable;
     };

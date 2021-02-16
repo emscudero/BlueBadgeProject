@@ -12,7 +12,8 @@ router.post('/create', validateSession, (req, res) => {
         model: req.body.valuables.model,
         serial_number: req.body.valuables.serial_number,
         photo: req.body.valuables.photo,
-        dollar_value: req.body.valuables.dollar_value
+        dollar_value: req.body.valuables.dollar_value,
+        owner: req.user.id
     }
     Valuable.create(valuablesEntry)
     .then(valuables => res.status(200).json(valuables))
@@ -35,7 +36,7 @@ router.put("/update/:entryId", validateSession, function(req, res){
         dollar_value: req.body.valuables.dollar_value
     };
 
-    const query = { where: { id: req.params.entryId, user: req.user.id} };
+    const query = { where: { id: req.params.entryId, owner_id: req.user.id} };
 
    Valuable.update(updateEntry, query)
     .then(valuables => res.status(200).json(valuables))
@@ -43,7 +44,7 @@ router.put("/update/:entryId", validateSession, function(req, res){
 });
 
 router.delete("/delete/:id", validateSession, function (req, res){
-    const query = { where: { id: req.params.id, user: req.user.id} };
+    const query = { where: { id: req.params.id, owner_id: req.user.id} };
 
     Valuable.destroy(query)
     .then(() => res.status(200).json({message: "Item Removed"}))
