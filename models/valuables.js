@@ -1,5 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    const Valuables = sequelize.define('valuables', {
+
+    const Valuable = sequelize.define('valuables', {
         name: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -18,19 +19,19 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
             },
             photo:{
-                type: DataTypes.STRING(1000),
+                type: DataTypes.STRING,
                 allowNull: false,
             },
             dollar_value:{
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            owner_id: {
+            owner_id:{
                 type: DataTypes.INTEGER,
                 allowNull: false
             }
 
         })
     
-    return Valuables;
+    return Valuable;
     };

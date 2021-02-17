@@ -12,18 +12,21 @@ router.post('/create', validateSession, (req, res) => {
         serial_number: req.body.valuables.serial_number,
         photo: req.body.valuables.photo,
         dollar_value: req.body.valuables.dollar_value,
-        owner: req.user.id
+        owner_id: req.user.id
     }
     Valuable.create(valuableEntry)
     .then(valuables => res.status(200).json(valuables))
     .catch(err => res.status(500).json({error: err}))
 });
 
-router.get("/", (req, res) => {
-    Valuable.findAll()
-    .then(valuables => res.status(200).json(valuables))
-    .catch(err => res.status(500).json({error:err}))
-});
+router.get("/:id", validateSession, (req, res) => {
+    let userId = req.user.id;
+    Valuable.findAll({
+      where: { owner_id: userId },
+    })
+      .then((valuables) => res.status(200).json(valuables))
+      .catch((err) => res.status(500).json({ error: err }));
+  });
   
 router.put("/update/:entryId", validateSession, function(req, res){
     const updateEntry = {
@@ -33,7 +36,6 @@ router.put("/update/:entryId", validateSession, function(req, res){
         serial_number: req.body.valuables.serial_number,
         photo: req.body.valuables.photo,
         dollar_value: req.body.valuables.dollar_value,
-        owner: req.user.id
     };
 
     const query = { where: { id: req.params.entryId, owner_id: req.user.id} };
