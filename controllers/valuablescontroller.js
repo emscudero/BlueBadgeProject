@@ -6,6 +6,7 @@ const Valuable = require('../db').import('../models/valuables');
 
 router.post('/create', validateSession, (req, res) => {
     const valuableEntry = {
+        category: req.body.valuables.category,
         name: req.body.valuables.name,
         year: req.body.valuables.year,
         model: req.body.valuables.model,
@@ -30,6 +31,7 @@ router.get("/:id", validateSession, (req, res) => {
   
 router.put("/update/:entryId", validateSession, function(req, res){
     const updateEntry = {
+        category: req.body.valuables.category,
         name: req.body.valuables.name,
         year: req.body.valuables.year,
         model: req.body.valuables.model,
