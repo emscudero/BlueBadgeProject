@@ -21,6 +21,16 @@ router.post('/create', validateSession, (req, res) => {
 });
 
 router.get("/:id", validateSession, (req, res) => {
+    let id = req.params.id;
+    let userId = req.user.id;
+    Valuable.findAll({
+        where: { owner_id: userId, id: id }
+    })
+      .then((valuables) => res.status(200).json(valuables))
+      .catch((err) => res.status(500).json({ error: err }));
+  });
+
+  router.get("/", validateSession, (req, res) => {
     let userId = req.user.id;
     Valuable.findAll({
       where: { owner_id: userId },
